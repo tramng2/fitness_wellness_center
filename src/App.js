@@ -21,7 +21,7 @@ function App() {
       })
     }
     getData()
-  }, [])
+  }, [dispatch])
  
   const [customers] = links.filter(el => el.rel === "customers")
 
