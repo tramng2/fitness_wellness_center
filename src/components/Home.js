@@ -1,23 +1,29 @@
-import React, { useState, useContext } from 'react'
 import "../App.css"
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-material.css';
+import React, { useState, useContext } from 'react'
 import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from "@material-ui/core/TextField";
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from "@material-ui/core/styles";
 
 import { DataContext } from '../DataContext'
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     root: {
-        "& > *": {
-            width: "300px",
-
-        }
-    }
+        padding: '4px',
+        display: 'flex',
+        alignItems: 'center',
+        width: 400,
+    },
+    input: {
+        marginLeft: theme.spacing(2),
+        width: "80%",
+    },
 }));
 
 function Home({ customerInfomation }) {
@@ -36,7 +42,7 @@ function Home({ customerInfomation }) {
     }
 
     const deleteItem = (url) => {
-        if (window.confirm('Are you sure?')) {
+        if (window.confirm('Do you want to delete this customer?')) {
             fetch(url, { method: 'DELETE' })
                 .then(response => {
                     if (response.ok) {
@@ -57,13 +63,12 @@ function Home({ customerInfomation }) {
                     <DeleteIcon fontSize="small" />
                 </IconButton>
         },
-        { field: 'firstname', sortable: true, headerName: "First Name"},
+        { field: 'firstname', sortable: true, headerName: "First Name" },
         { field: 'lastname', sortable: true, headerName: "Last Name" },
         { field: 'streetaddress', sortable: true, headerName: "Address" },
-        { field: 'postcode', sortable: true, headerName: "Post code"},
-        { field: 'city', sortable: true},
-        { field: 'phone', sortable: true},
-
+        { field: 'postcode', sortable: true, headerName: "Post code" },
+        { field: 'city', sortable: true },
+        { field: 'phone', sortable: true },
     ]
 
     function onGridReady(params) {
@@ -82,27 +87,27 @@ function Home({ customerInfomation }) {
     return customerInfo ? (
         <div>
             <div className="search">
-                <div className={classes.root}>
-                    <TextField
+                <Paper className={classes.root}>
+                    <SearchIcon />
+                    <InputBase
                         type="search"
-                        id="filter-text-box"
-                        label="Search"
+                        className={classes.input}
                         placeholder="Find anything"
-                        variant="outlined"
-                        onChange={handleQuickFilter} size="small"
+                        onChange={handleQuickFilter}
+                        size="small"
                     />
-                </div>
-
+                </Paper>
             </div>
 
-            <div className="ag-theme-material" style={{ height: '520px', width: '90%', margin: 'auto' }}>
+            <div className="ag-theme-alpine" style={{ height: '500px', width: '90%', margin: 'auto' }}>
                 <AgGridReact
+                    style={{ width: '100%', height: '100%;' }}
                     onGridReady={onGridReady}
                     rowData={customerInfomation}
                     columnDefs={columns}
                     pagination={true}
                     paginationPageSize={8}
-                // singleClickEdit={true}
+                    suppressCellSelection={true}
                 />
             </div>
         </div>
@@ -110,4 +115,3 @@ function Home({ customerInfomation }) {
 }
 
 export default Home
-// suppressClickEdit = {true}

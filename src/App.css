@@ -1,18 +1,9 @@
-.ag-theme-material .ag-cell{
-  padding: 10px;
-  text-align: center;
-
-}
-
-.ag-theme-material .ag-header-cell {
-  padding: 10px;
-}
-.ag-header-cell-text{
-  margin: 0 auto;
-
+.ag-header-cell-label{
+justify-content: flex-start;
 }
 .search{
   display: flex;
   justify-content: flex-end;
-  margin-right: 15%;
+  margin-right: 5%;
+  margin-bottom: 40px;
 }
