@@ -1,9 +1,9 @@
 export const initialState = {
     links: [],
-    customerInfo: []
+    customerInfo: [],
+    trainingInfo: [],
 }
 const reducer = (state, action) => {
-
     switch (action.type) {
         case 'SET_LINK':
             return {
@@ -21,7 +21,20 @@ const reducer = (state, action) => {
                 ...state,
                 customerInfo: updatedCustomerInfo
             }
+        case 'DELETE_TRAINNING_INFO':
+            const updatedTrainningInfo = state.trainingInfo.filter(element => element.id !== action.id);
+            return {
+                ...state,
+                trainingInfo: updatedTrainningInfo
+            }
+
+        case 'SET_TRAINNING_INFO':
+            return {
+                ...state,
+                trainingInfo: action.trainingInfo
+            }
         default: return state;
     }
+
 }
 export default reducer;

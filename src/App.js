@@ -22,13 +22,14 @@ function App() {
     }
     getData()
   }, [dispatch])
- 
+
   const [customers] = links.filter(el => el.rel === "customers")
+
 
   useEffect(() => {
     if (customers) {
       const getCustomerInfo = async () => {
-        const {data : { content }} = await axios
+        const { data: { content } } = await axios
           .get(customers.href)
         dispatch({
           type: 'SET_CUSTOMER_INFO',
@@ -38,16 +39,14 @@ function App() {
       getCustomerInfo()
     }
   }, [customers, dispatch])
-// console.log("line40",customers );
-// console.log("line41",links );
 
   return (
     <Router>
       <div className="App">
         <Nav />
         <Switch>
-          <Route exact path="/" render={(props) => <Home {...props} customerInfomation={customerInfo}/>}></Route>
-          <Route path="/trainning" component={Trainning}></Route>
+          <Route exact path="/" render={() => <Home customerInfomation={customerInfo} />}></Route>
+          <Route path="/trainning" render={() => <Trainning />}></Route>
           <Route path="/calendar" component={Calendar}></Route>
         </Switch>
       </div>
