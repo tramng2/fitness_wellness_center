@@ -11,6 +11,7 @@ import axios from "axios"
 
 function App() {
   const [{ links, customerInfo }, dispatch] = useContext(DataContext)
+
   useEffect(() => {
     const getData = async () => {
       const { data: { links } } = await axios

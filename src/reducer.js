@@ -27,6 +27,12 @@ const reducer = (state, action) => {
                 ...state,
                 trainingInfo: updatedTrainningInfo
             }
+        case 'ADD_NEW_CUSTOMER':
+            return {
+                ...state,
+                customerInfo:
+                [...state.customerInfo, action.newCustomerInfo]
+            }
 
         case 'SET_TRAINNING_INFO':
             return {

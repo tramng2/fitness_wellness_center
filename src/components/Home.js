@@ -11,6 +11,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from "@material-ui/core/styles";
 
 import { DataContext } from '../DataContext'
+import AddCustomer from './AddCustomer'
+import axios from "axios"
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,19 +37,33 @@ function Home({ customerInfomation }) {
 
     const classes = useStyles();
 
-    const updateCustomerInfo = (deleleElement) => {
+    const saveNewCustomer = (newCustomer) => {
+        fetch('https://customerrest.herokuapp.com/api/customers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCustomer)
+        })
+        dispatch({
+            type: 'ADD_NEW_CUSTOMER',
+            newCustomerInfo: newCustomer
+        })
+    }
+
+    const deleteCustomerInfo = (deleleElement) => {
         dispatch({
             type: "DELETE_CUSTOMER_INFO",
             href: deleleElement
         })
     }
 
-    const deleteItem = (url) => {
+    const handleDeleteItem = (url) => {
         if (window.confirm('Do you want to delete this customer?')) {
             fetch(url, { method: 'DELETE' })
                 .then(response => {
                     if (response.ok) {
-                        updateCustomerInfo(url)
+                        deleteCustomerInfo(url)
                     }
                     else alert('Something went wrong!');
                 })
@@ -59,7 +76,7 @@ function Home({ customerInfomation }) {
             width: 100,
             field: 'links',
             cellRendererFramework: params =>
-                <IconButton onClick={() => deleteItem(params.value[0].href)}>
+                <IconButton onClick={() => handleDeleteItem(params.value[0].href)}>
                     <DeleteIcon fontSize="small" />
                 </IconButton>
         },
@@ -87,6 +104,7 @@ function Home({ customerInfomation }) {
     return customerInfo ? (
         <div>
             <div className="search">
+                
                 <Paper className={classes.root}>
                     <SearchIcon />
                     <InputBase
@@ -98,8 +116,8 @@ function Home({ customerInfomation }) {
                     />
                 </Paper>
             </div>
-
             <div className="ag-theme-alpine" style={{ height: '500px', width: '90%', margin: 'auto' }}>
+            <AddCustomer saveNewCustomer={saveNewCustomer} />
                 <AgGridReact
                     style={{ width: '100%', height: '100%;' }}
                     onGridReady={onGridReady}
