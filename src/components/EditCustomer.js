@@ -5,20 +5,31 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
-function AddCustomer({saveNewCustomer}) {
+function EditCustomer({ customerInfo, editCustomerInfo, urlEdit }) {
+    const [url] = urlEdit;
     const [open, setOpen] = useState(false);
-    const [newCustomerInfo, setNewCustomerInfo] = useState({ 
-        firstname: '', 
-        lastname: '', 
-        streetaddress: '', 
-        postcode: '', 
-        city: '', 
-        phone: '' 
+    const [newCustomerInfo, setNewCustomerInfo] = useState({
+        firstname: '',
+        lastname: '',
+        streetaddress: '',
+        postcode: '',
+        city: '',
+        phone: ''
     });
 
     const handleClickOpen = () => {
         setOpen(true);
+        setNewCustomerInfo({
+            firstname: customerInfo.firstname,
+            lastname: customerInfo.lastname,
+            streetaddress: customerInfo.streetaddress,
+            postcode: customerInfo.postcode,
+            city: customerInfo.city,
+            phone: customerInfo.phone
+        })
     };
 
     const handleClose = () => {
@@ -26,20 +37,20 @@ function AddCustomer({saveNewCustomer}) {
     };
 
     const handleInputChange = (e) => {
-        setNewCustomerInfo({...newCustomerInfo, [e.target.name]: e.target.value})
+        setNewCustomerInfo({ ...newCustomerInfo, [e.target.name]: e.target.value })
     }
 
-    const handleAddCustomer = () => {
-        saveNewCustomer(newCustomerInfo);
+    const handleSave = () => {
+        editCustomerInfo(url.href, newCustomerInfo)
         handleClose()
     }
 
 
     return (
         <div>
-            <Button size="small" variant="outlined" onClick={handleClickOpen} style={{marginBottom:'10px'}}>
-                Add Customer 
-            </Button>
+            <IconButton color="primary" onClick={handleClickOpen}>
+                <EditIcon />
+            </IconButton>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">New Customer</DialogTitle>
                 <DialogContent>
@@ -96,11 +107,11 @@ function AddCustomer({saveNewCustomer}) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary"> Cancel </Button>
-                    <Button onClick={handleAddCustomer} color="primary"> Save </Button>
+                    <Button onClick={handleSave} color="primary"> Save </Button>
                 </DialogActions>
             </Dialog>
         </div>
     )
 }
 
-export default AddCustomer
+export default EditCustomer

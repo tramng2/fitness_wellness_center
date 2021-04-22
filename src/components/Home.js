@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { DataContext } from '../DataContext'
 
 import AddCustomer from './AddCustomer'
+import EditCustomer from './EditCustomer'
 import axios from "axios"
 
 
@@ -37,12 +38,11 @@ function Home({ customers }) {
     const getCustomerInfo = useCallback(async () => {
         const { data: { content } } = await axios
             .get('https://customerrest.herokuapp.com/api/customers')
-        console.log(content)
         dispatch({
             type: 'SET_CUSTOMER_INFO',
             customerInfo: content
         })
-    },[dispatch],
+    }, [dispatch],
     )
 
     useEffect(() => {
@@ -84,10 +84,35 @@ function Home({ customers }) {
         }
     }
 
+    const editCustomerInfo = (url, updatedInfo) => {
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(updatedInfo),
+            headers: { 'Content-type': 'application/json' }
+        })
+        .then(res => {
+            if (res.ok) {
+                getCustomerInfo()
+            } else alert('something went wrong')
+        .catch(err => console.log(err))
+        })
+    }
+
     const columns = [
         {
             headerName: '',
-            width: 100,
+            width: 50,
+            field: 'links',
+            cellRendererFramework: params => 
+                <EditCustomer
+                customerInfo = { params.data }
+                editCustomerInfo = { editCustomerInfo }
+                urlEdit = { params.value.filter(e => e.rel === 'self') }
+                />
+        },
+        {
+            headerName: '',
+            width: 80,
             field: 'links',
             cellRendererFramework: params =>
                 <IconButton onClick={() => handleDeleteItem(params.value[0].href)}>
