@@ -30,8 +30,7 @@ const reducer = (state, action) => {
         case 'ADD_NEW_CUSTOMER':
             return {
                 ...state,
-                customerInfo:
-                [...state.customerInfo, action.newCustomerInfo]
+                customerInfo: [...state.customerInfo, action.newCustomerInfo]
             }
 
         case 'SET_TRAINNING_INFO':

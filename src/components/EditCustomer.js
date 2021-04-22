@@ -92,6 +92,7 @@ function AddCustomer({saveNewCustomer}) {
                         label="Phone"
                         fullWidth
                     />
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary"> Cancel </Button>
