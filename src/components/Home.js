@@ -10,6 +10,8 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from "@material-ui/core/styles";
 import { DataContext } from '../DataContext'
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 import AddCustomer from './AddCustomer'
 import EditCustomer from './EditCustomer'
@@ -29,11 +31,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Home({ customers }) {
+function Home() {
     const classes = useStyles();
     const [{ customerInfo }, dispatch] = useContext(DataContext)
+    const [open, setOpen] = useState(false);
+    const [msg, setMsg] = useState('');
+
+    console.log(customerInfo)
+
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
+
+    const openSnackbar = () => {
+        setOpen(true);
+    }
+    const closeSnackbar = () => {
+        setOpen(false);
+    }
 
     const getCustomerInfo = useCallback(async () => {
         const { data: { content } } = await axios
@@ -77,6 +91,8 @@ function Home({ customers }) {
                 .then(response => {
                     if (response.ok) {
                         deleteCustomerInfo(url)
+                        setMsg("Car delete succesfully")
+                        openSnackbar();
                     }
                     else alert('Something went wrong!');
                 })
@@ -90,29 +106,29 @@ function Home({ customers }) {
             body: JSON.stringify(updatedInfo),
             headers: { 'Content-type': 'application/json' }
         })
-        .then(res => {
-            if (res.ok) {
-                getCustomerInfo()
-            } else alert('something went wrong')
-        .catch(err => console.log(err))
-        })
+            .then(res => {
+                if (res.ok) {
+                    getCustomerInfo()
+                    setMsg("Edit succesfully")
+                    openSnackbar();
+                } else alert('something went wrong')
+                    .catch(err => console.log(err))
+            })
     }
 
     const columns = [
         {
             headerName: '',
-            width: 50,
             field: 'links',
-            cellRendererFramework: params => 
+            cellRendererFramework: params =>
                 <EditCustomer
-                customerInfo = { params.data }
-                editCustomerInfo = { editCustomerInfo }
-                urlEdit = { params.value.filter(e => e.rel === 'self') }
+                    customerInfo={params.data}
+                    editCustomerInfo={editCustomerInfo}
+                    urlEdit={params.value.filter(e => e.rel === 'self')}
                 />
         },
         {
             headerName: '',
-            width: 80,
             field: 'links',
             cellRendererFramework: params =>
                 <IconButton onClick={() => handleDeleteItem(params.value[0].href)}>
@@ -162,6 +178,12 @@ function Home({ customers }) {
                     pagination={true}
                     paginationPageSize={8}
                     suppressCellSelection={true}
+                />
+                <Snackbar
+                    open={open}
+                    autoHideDuration={2000}
+                    message={msg}
+                    onClose={closeSnackbar}
                 />
             </div>
         </div>
