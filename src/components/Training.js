@@ -26,34 +26,34 @@ function Tranning() {
         setOpen(false);
     }
 
-    const getTrainning = useCallback(async () => {
+    const gettraining = useCallback(async () => {
         const { data } = await axios
             .get('https://customerrest.herokuapp.com/gettrainings')
         dispatch({
-            type: 'SET_TRAINNING_INFO',
+            type: 'SET_TRAINING_INFO',
             trainingInfo: data
         })
     }, [dispatch],
     )
 
     useEffect(() => {
-        getTrainning()
-    }, [getTrainning])
+        gettraining()
+    }, [gettraining])
 
 
-    const handleDeleteTrainning = (deleleElement) => {
+    const handleDeletetraining = (deleleElement) => {
         dispatch({
-            type: "DELETE_TRAINNING_INFO",
+            type: "DELETE_TRAINING_INFO",
             id: deleleElement
         })
     }
 
-    const deleteTrainning = (id) => {
+    const deletetraining = (id) => {
         if (window.confirm('Do you want to delete this tranning?')) {
             fetch(`https://customerrest.herokuapp.com/api/trainings/${id}`, { method: 'DELETE' })
                 .then(response => {
                     if (response.ok) {
-                        handleDeleteTrainning(id)
+                        handleDeletetraining(id)
                         setMsg("Car delete succesfully")
                         openSnackbar();
                     }
@@ -68,7 +68,7 @@ function Tranning() {
         {
             headerName: '', width: 100, field: 'links',
             cellRendererFramework: params =>
-                <IconButton onClick={() => deleteTrainning(params.data.id)}>
+                <IconButton onClick={() => deletetraining(params.data.id)}>
                     <DeleteIcon fontSize="small" />
                 </IconButton>
         },

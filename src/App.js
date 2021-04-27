@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Nav from './components/Nav'
 import Home from './components/Home'
-import Trainning from './components/Tranning'
+import Training from './components/Training'
 import Calendar from './components/Calendar'
 // import { DataContext } from './DataContext'
 // import axios from "axios"
@@ -31,7 +31,7 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path="/" render={() => <Home />}></Route>
-          <Route path="/trainning" render={() => <Trainning />}></Route>
+          <Route path="/training" render={() => <Training />}></Route>
           <Route path="/calendar" component={Calendar}></Route>
         </Switch>
       </div>

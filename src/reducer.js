@@ -21,19 +21,24 @@ const reducer = (state, action) => {
                 ...state,
                 customerInfo: updatedCustomerInfo
             }
-        case 'DELETE_TRAINNING_INFO':
-            const updatedTrainningInfo = state.trainingInfo.filter(element => element.id !== action.id);
+        case 'DELETE_TRAINING_INFO':
+            const updatedTrainingInfo = state.trainingInfo.filter(element => element.id !== action.id);
             return {
                 ...state,
-                trainingInfo: updatedTrainningInfo
+                trainingInfo: updatedTrainingInfo
             }
         case 'ADD_NEW_CUSTOMER':
             return {
                 ...state,
                 customerInfo: [...state.customerInfo, action.newCustomerInfo]
             }
+        case 'ADD_NEW_TRAINING':
+            return {
+                ...state,
+                trainingInfo: [...state.trainingInfo, action.newtrainingInfo]
+            }
 
-        case 'SET_TRAINNING_INFO':
+        case 'SET_TRAINING_INFO':
             return {
                 ...state,
                 trainingInfo: action.trainingInfo
