@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { DataProvider, DataContext } from './DataContext'
+import { DataProvider } from './DataContext'
 import reducer, { initialState } from './reducer'
 
 

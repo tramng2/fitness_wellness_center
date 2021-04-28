@@ -13,7 +13,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 function Tranning() {
     const [{ trainingInfo }, dispatch] = useContext(DataContext);
+        //eslint-disable-next-line
     const [gridApi, setGridApi] = useState(null);
+        //eslint-disable-next-line
     const [gridColumnApi, setGridColumnApi] = useState(null);
 
     const [open, setOpen] = useState(false);

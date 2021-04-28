@@ -27,12 +27,14 @@ const useStyles = makeStyles((theme) => ({
 
 function Home() {
     const classes = useStyles();
+    //eslint-disable-next-line
     const [{ customerInfo, trainingInfo }, dispatch] = useContext(DataContext)
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState('');
 
 
     const [gridApi, setGridApi] = useState(null);
+    //eslint-disable-next-line
     const [gridColumnApi, setGridColumnApi] = useState(null);
 
     const openSnackbar = () => {
