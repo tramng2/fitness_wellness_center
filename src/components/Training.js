@@ -77,7 +77,7 @@ function Tranning() {
         {
             headerName: 'Date', field: 'date',
             cellRenderer: (data) => {
-                return moment(data.createdAt).format('MM.DD.YYYY HH:mm a')
+                return moment(data.createdAt).format('DD.MM.YYYY HH:mm a')
             }
         },
         { field: 'duration', headerName: "Duration (min)", sortable: true },
