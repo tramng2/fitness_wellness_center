@@ -39,6 +39,7 @@ function CalendarPage() {
     }
     useEffect(() => {
         gettraining()
+        // eslint-disable-next-line 
     }, [])
 
     return (
