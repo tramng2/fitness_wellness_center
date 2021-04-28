@@ -70,7 +70,7 @@ function Tranning() {
             headerName: '', width: 100, field: 'links',
             cellRendererFramework: params =>
                 <IconButton onClick={() => deletetraining(params.data.id)}>
-                    <DeleteIcon fontSize="small" />
+                    <DeleteIcon fontSize="small" color="secondary" />
                 </IconButton>
         },
         { field: 'activity', sortable: true },
@@ -92,14 +92,15 @@ function Tranning() {
 
 
     return trainingInfo ? (
-        <div className="ag-theme-alpine" style={{ height: '500px', width: '90%', margin: 'auto' }}>
+        <div className="ag-theme-alpine" style={{ height: '60vh', width: '90%', margin: 'auto', transform: 'translateY(20%)' }}>
             <AgGridReact
                 style={{ width: '100%', height: '100%;' }}
                 onGridReady={onGridReady}
+                rowHeight={60}
                 rowData={trainingInfo}
                 columnDefs={columns}
                 pagination={true}
-                paginationPageSize={8}
+                paginationPageSize={6}
                 suppressCellSelection={true}
             />
             <Snackbar

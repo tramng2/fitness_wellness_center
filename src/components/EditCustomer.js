@@ -45,7 +45,6 @@ function EditCustomer({ customerInfo, editCustomerInfo, urlEdit }) {
         handleClose()
     }
 
-
     return (
         <div>
             <IconButton color="primary" onClick={handleClickOpen}>
@@ -103,7 +102,6 @@ function EditCustomer({ customerInfo, editCustomerInfo, urlEdit }) {
                         label="Phone"
                         fullWidth
                     />
-
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary"> Cancel </Button>

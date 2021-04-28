@@ -5,8 +5,6 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from "@material-ui/core/styles";
 import { DataContext } from '../DataContext'
@@ -195,15 +193,15 @@ function Home() {
                 </TextField>
                 <AddCustomer saveNewCustomer={saveNewCustomer} />
             </div>
-            <div className="ag-theme-alpine" style={{ height: '500px', width: '90%', margin: 'auto' }}>
+            <div className="ag-theme-alpine" style={{ height: '60vh', width: '90%', margin: 'auto' }}>
                 <AgGridReact
                     style={{ width: '100%', height: '100%;', }}
-                    rowHeight={50}
+                    rowHeight={60}
                     onGridReady={onGridReady}
                     rowData={customerInfo}
                     columnDefs={columns}
                     pagination={true}
-                    paginationPageSize={8}
+                    paginationPageSize={6}
                     suppressCellSelection={true}
                 />
                 <Snackbar
