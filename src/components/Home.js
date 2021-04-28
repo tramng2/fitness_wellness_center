@@ -11,6 +11,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from "@material-ui/core/styles";
 import { DataContext } from '../DataContext'
 import Snackbar from '@material-ui/core/Snackbar';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
 
 
 import AddCustomer from './AddCustomer'
@@ -20,16 +22,9 @@ import axios from "axios"
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: '4px',
-        display: 'flex',
-        alignItems: 'center',
-        width: 400,
-    },
-    input: {
-        marginLeft: theme.spacing(2),
-        width: "80%",
-    },
+    margin: {
+        width: '17rem'
+    }
 }));
 
 function Home() {
@@ -38,7 +33,6 @@ function Home() {
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState('');
 
-    console.log(trainingInfo)
 
     const [gridApi, setGridApi] = useState(null);
     const [gridColumnApi, setGridColumnApi] = useState(null);
@@ -72,7 +66,7 @@ function Home() {
             },
             body: JSON.stringify(newCustomer)
         })
-        // console.log(newCustomer)
+
         dispatch({
             type: 'SET_CUSTOMER_INFO',
             newCustomerInfo: newCustomer
@@ -135,6 +129,8 @@ function Home() {
         {
             headerName: '',
             field: 'links',
+            width: '70px',
+            suppressSizeToFit: true,
             cellRendererFramework: params =>
                 <EditCustomer
                     customerInfo={params.data}
@@ -145,16 +141,20 @@ function Home() {
         {
             headerName: '',
             field: 'links',
+            width: '70px',
+            suppressSizeToFit: true,
             cellRendererFramework: params =>
                 <IconButton onClick={() => handleDeleteItem(params.value[0].href)}>
-                    <DeleteIcon fontSize="small" />
+                    <DeleteIcon fontSize="small" color="secondary" />
                 </IconButton>
         },
         {
             headerName: '',
             field: 'links',
+            width: '150px',
+            suppressSizeToFit: true,
             cellRendererFramework: params =>
-                <AddTraining saveNewtraining={saveNewtraining} customerInfo={params.data}/>
+                <AddTraining saveNewtraining={saveNewtraining} customerInfo={params.data} />
         },
         { field: 'firstname', sortable: true, headerName: "First Name" },
         { field: 'lastname', sortable: true, headerName: "Last Name" },
@@ -164,7 +164,7 @@ function Home() {
         { field: 'phone', sortable: true },
     ]
 
-    function onGridReady(params) {
+    const onGridReady = (params) => {
         setGridApi(params.api)
         setGridColumnApi(params.columnApi);
         params.api.sizeColumnsToFit();
@@ -174,26 +174,31 @@ function Home() {
         gridApi.setQuickFilter(e.target.value)
     }
 
-
     return customerInfo ? (
         <div>
             <div className="search">
-                <Paper className={classes.root}>
-                    <SearchIcon />
-                    <InputBase
-                        type="search"
-                        className={classes.input}
-                        placeholder="Find anything"
-                        onChange={handleQuickFilter}
-                        size="small"
-                    />
-                </Paper>
+                <TextField
+                    className={classes.margin}
+                    type="search"
+                    placeholder="Search"
+                    onChange={handleQuickFilter}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        )
+                    }}
+                >
+
+
+                </TextField>
+                <AddCustomer saveNewCustomer={saveNewCustomer} />
             </div>
             <div className="ag-theme-alpine" style={{ height: '500px', width: '90%', margin: 'auto' }}>
-                <AddCustomer saveNewCustomer={saveNewCustomer} />
-
                 <AgGridReact
-                    style={{ width: '100%', height: '100%;' }}
+                    style={{ width: '100%', height: '100%;', }}
+                    rowHeight={50}
                     onGridReady={onGridReady}
                     rowData={customerInfo}
                     columnDefs={columns}

@@ -5,16 +5,18 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import IconButton from '@material-ui/core/IconButton';
 
-function AddCustomer({saveNewCustomer}) {
+function AddCustomer({ saveNewCustomer }) {
     const [open, setOpen] = useState(false);
-    const [newCustomerInfo, setNewCustomerInfo] = useState({ 
-        firstname: '', 
-        lastname: '', 
-        streetaddress: '', 
-        postcode: '', 
-        city: '', 
-        phone: '' 
+    const [newCustomerInfo, setNewCustomerInfo] = useState({
+        firstname: '',
+        lastname: '',
+        streetaddress: '',
+        postcode: '',
+        city: '',
+        phone: ''
     });
 
     const handleClickOpen = () => {
@@ -26,7 +28,7 @@ function AddCustomer({saveNewCustomer}) {
     };
 
     const handleInputChange = (e) => {
-        setNewCustomerInfo({...newCustomerInfo, [e.target.name]: e.target.value})
+        setNewCustomerInfo({ ...newCustomerInfo, [e.target.name]: e.target.value })
     }
 
     const handleAddCustomer = () => {
@@ -37,9 +39,12 @@ function AddCustomer({saveNewCustomer}) {
 
     return (
         <div>
-            <Button size="small" variant="outlined" onClick={handleClickOpen} style={{marginBottom:'10px'}}>
-                Add Customer 
-            </Button>
+            <IconButton 
+            onClick={() => handleClickOpen()} 
+            style={{transform: 'translateY(-8px)'}}
+            >
+                <AddBoxIcon/>
+            </IconButton>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">New Customer</DialogTitle>
                 <DialogContent>

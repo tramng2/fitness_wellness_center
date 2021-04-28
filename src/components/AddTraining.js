@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 function AddTraining({ saveNewtraining, customerInfo }) {
     const [open, setOpen] = useState(false);
@@ -30,14 +31,22 @@ function AddTraining({ saveNewtraining, customerInfo }) {
     }
 
     const handleAddNewtraining = () => {
-        saveNewtraining(newTrainingInfo);
-        handleClose()
+        if (newTrainingInfo.date && newTrainingInfo.activity && newTrainingInfo.duration) {
+            saveNewtraining(newTrainingInfo);
+            handleClose()
+        } else alert ("Input is invalid. Please fill all.")
     }
 
 
     return (
         <div>
-            <Button size="small" variant="outlined" onClick={handleClickOpen} style={{ marginBottom: '10px' }}>
+            <Button 
+            size="small" 
+            variant="outlined" 
+            onClick={handleClickOpen} 
+            startIcon={<AddCircleOutlineIcon />}
+            style={{fontSize: '0.8rem', textTransform: 'capitalize'}}
+            >
                 Add training
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -47,6 +56,7 @@ function AddTraining({ saveNewtraining, customerInfo }) {
                 <DialogContent>
                     <TextField
                         autoFocus
+                        required="true"
                         margin="dense"
                         name="activity"
                         value={newTrainingInfo.activity}
@@ -57,7 +67,7 @@ function AddTraining({ saveNewtraining, customerInfo }) {
                     <TextField
                         margin="dense"
                         name="date"
-                        type="date"
+                        type="datetime-local"
                         value={newTrainingInfo.date}
                         onChange={e => handleInputChange(e)}
                         label="Date"
@@ -69,6 +79,7 @@ function AddTraining({ saveNewtraining, customerInfo }) {
                     <TextField
                         margin="dense"
                         name="duration"
+                        type="number"
                         value={newTrainingInfo.duration}
                         onChange={e => handleInputChange(e)}
                         label="Duration"

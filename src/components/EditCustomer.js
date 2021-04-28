@@ -52,7 +52,7 @@ function EditCustomer({ customerInfo, editCustomerInfo, urlEdit }) {
                 <EditIcon />
             </IconButton>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">New Customer</DialogTitle>
+                <DialogTitle id="form-dialog-title">Edit Profile</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus

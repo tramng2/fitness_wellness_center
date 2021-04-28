@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { DataContext } from '../DataContext'
 import axios from "axios"
+import moment from 'moment';
 
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -73,7 +74,12 @@ function Tranning() {
                 </IconButton>
         },
         { field: 'activity', sortable: true },
-        { field: 'date', sortable: true },
+        {
+            headerName: 'Date', field: 'date',
+            cellRenderer: (data) => {
+                return moment(data.createdAt).format('MM.DD.YYYY HH:mm a')
+            }
+        },
         { field: 'duration', headerName: "Duration (min)", sortable: true },
         { field: 'customer.firstname', headerName: "Customer", sortable: true }
     ]
