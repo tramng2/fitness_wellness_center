@@ -1,4 +1,4 @@
-#Deloyment
+# Deloyment
 https://fitness-yoga-center.netlify.app/
 ## Fitness and Yoga center 
 
